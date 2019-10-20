@@ -1,0 +1,4 @@
+pytest
+flask
+redis
+tmdbv3api
