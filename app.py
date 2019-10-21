@@ -2,7 +2,6 @@
 from flask import Flask, jsonify, render_template, request
 app = Flask(__name__)
 import os,optparse
-import yaml
 
 info = {}
 from tmdbv3api import TMDb
