@@ -2,10 +2,75 @@
 
 {% block body %}
 
-<div class="w3-container" style="padding:128px 16px" id="work">
-    <h1 class="w3-center">Movie Title</h1>
-    <p class="w3-center w3-large">What we've done for people</p>
-
+<div class="w3-container" style="padding: 70px 16px">
+    <h1 class="w3-center">Title</h1>
+    <div class="row">
+        <div class="col-6 cont-r">
+            <img class="img-c" src="https://m.media-amazon.com/images/M/MV5BNGVjNWI4ZGUtNzE0MS00YTJmLWE0ZDctN2ZiYTk2YmI3NTYyXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg">
+        </div> 
+        <div class="col-6 cont-l right">
+            <h1>The City</h1>
+            <p>Chania is the capital of the Chania region on the island of Crete. The city can be divided in two parts, the old town and the modern city.</p>
+        </div>      
+    </div>
 </div>
+      
+
+
+<style>
+
+* {
+  box-sizing: border-box;
+}
+
+.img-c{
+    max-width: 60%;
+}
+
+.cont-r {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.cont-l {
+    align-items: center;
+    justify-content: center;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.row::after {
+  content: "";
+  clear: both;
+  display: block;
+}
+
+[class*="col-"] {
+  float: left;
+}
+
+/* For desktop: */
+.col-1 {width: 8.33%;}
+.col-2 {width: 16.66%;}
+.col-3 {width: 25%;}
+.col-4 {width: 33.33%;}
+.col-5 {width: 41.66%;}
+.col-6 {width: 50%;}
+.col-7 {width: 58.33%;}
+.col-8 {width: 66.66%;}
+.col-9 {width: 75%;}
+.col-10 {width: 83.33%;}
+.col-11 {width: 91.66%;}
+.col-12 {width: 100%;}
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  [class*="col-"] {
+    width: 100%;
+  }
+}
+</style>
 
 {% endblock %}
