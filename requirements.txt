@@ -2,3 +2,4 @@ pytest
 flask
 redis
 tmdbv3api
+gunicorn==19.9.0

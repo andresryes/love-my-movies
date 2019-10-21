@@ -19,15 +19,18 @@
 <body>
 
 <!-- Navbar (sit on top) -->
-<div class="w3-top">
-  <div class="w3-bar w3-white w3-card" id="myNavbar">
-    <a href="/" class="w3-bar-item w3-button w3-wide">Movies</a>
+<div class="w3-top" style="background: black; color: white;">
+  <div  class="w3-bar w3-black w3-card" id="myNavbar">
+    <a href="/" class="w3-bar-item w3-button w3-wide"> <img style="width: 23px;" src="{{ url_for('static', filename='resources/icon.png') }}"> Movies</a>
     <!-- Right-sided navbar links -->
     <div class="w3-right w3-hide-small">
       <a href="/" class="w3-bar-item w3-button"><i class="fa fa-home"></i> Home</a>
-      <a href="/movies" class="w3-bar-item w3-button"><i class="fa fa-bookmark"></i> All</a>
-      <a href="/movies" class="w3-bar-item w3-button"><i class="fa fa-compass"></i> Discover </a>
-      <a href="/details" class="w3-bar-item w3-button"><i class="fa fa-bolt"></i> Trending</a>
+      <a href="/all" class="w3-bar-item w3-button"><i class="fa fa-bookmark"></i> All</a>
+      <a href="/pop" class="w3-bar-item w3-button"><i class="fa fa-compass"></i> Popular </a>
+      <a href="/now" class="w3-bar-item w3-button"><i class="fa fa-history"></i> Now Playing </a>
+      <a href="/top" class="w3-bar-item w3-button"><i class="fa fa-bolt"></i> Top Rated</a>
+      <a href="#" class="w3-bar-item w3-button"  onclick="openSearch()"><i class="fa fa-search"></i> Search</a>
+
     </div>
     <!-- Hide right-floated links on small screens and replace them with a menu icon -->
 
@@ -41,9 +44,11 @@
 <nav class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large" style="display:none" id="mySidebar">
   <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-large w3-padding-16">Close ×</a>
   <a href="/" onclick="w3_close()" class="w3-bar-item w3-button">Home</a>
-  <a href="/movies" onclick="w3_close()" class="w3-bar-item w3-button">All</a>
-  <a href="#work" onclick="w3_close()" class="w3-bar-item w3-button">Discover</a>
-  <a href="#pricing" onclick="w3_close()" class="w3-bar-item w3-button">Trending</a>
+  <a href="/all" onclick="w3_close()" class="w3-bar-item w3-button">All</a>
+  <a href="/pop" onclick="w3_close()" class="w3-bar-item w3-button">Popular</a>
+  <a href="/now" onclick="w3_close()" class="w3-bar-item w3-button">Now Playing</a>
+  <a href="/top" onclick="w3_close()" class="w3-bar-item w3-button">Top Rated</a>
+  <a href="#" class="w3-bar-item w3-button"  onclick="openSearch()"> Search</a>
 </nav>
 
 
@@ -123,6 +128,16 @@ Skills Section
 </div>
 --> 
 
+<div id="myOverlay" class="overlay">
+    <span class="closebtn" onclick="closeSearch()" title="Close Overlay">×</span>
+    <div style="max-width: 700px;" class="overlay-content" style="align-content: center; justify-content: center;">
+      <form action="/search?key=key">
+        <input type="text" placeholder="Search.." name="key">
+        <button type="submit"><i class="fa fa-search"></i></button>
+      </form>
+    </div>
+  </div>
+
 <!-- Footer -->
 <footer class="w3-center w3-black w3-padding-64" style="width: 100%;">
   <a href="#" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
@@ -150,6 +165,14 @@ Skills Section
 // Toggle between showing and hiding the sidebar when clicking the menu icon
 var mySidebar = document.getElementById("mySidebar");
 
+function openSearch() {
+  document.getElementById("myOverlay").style.display = "block";
+}
+
+function closeSearch() {
+  document.getElementById("myOverlay").style.display = "none";
+}
+
 function w3_open() {
   if (mySidebar.style.display === 'block') {
     mySidebar.style.display = 'none';
@@ -163,6 +186,79 @@ function w3_close() {
     mySidebar.style.display = "none";
 }
 </script>
+<style>
+.openBtn {
+  background: #f1f1f1;
+  border: none;
+  padding: 10px 15px;
+  font-size: 20px;
+  cursor: pointer;
+}
 
+.openBtn:hover {
+  background: #bbb;
+}
+
+.overlay {
+  height: 100%;
+  width: 100%;
+  display: none;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0, 0.9);
+}
+
+.overlay-content {
+  position: relative;
+  top: 46%;
+  width: 80%;
+  text-align: center;
+  margin-top: 30px;
+  margin: auto;
+}
+
+.overlay .closebtn {
+  position: absolute;
+  top: 20px;
+  right: 45px;
+  font-size: 60px;
+  cursor: pointer;
+  color: white;
+}
+
+.overlay .closebtn:hover {
+  color: #ccc;
+}
+
+.overlay input[type=text] {
+  padding: 15px;
+  font-size: 17px;
+  border: none;
+  float: left;
+  width: 80%;
+  background: white;
+}
+
+.overlay input[type=text]:hover {
+  background: #f1f1f1;
+}
+
+.overlay button {
+  float: left;
+  width: 20%;
+  padding: 15px;
+  background: #ddd;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+}
+
+.overlay button:hover {
+  background: #bbb;
+}
+</style>
 </body>
 </html>

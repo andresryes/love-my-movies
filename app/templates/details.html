@@ -2,15 +2,34 @@
 
 {% block body %}
 
-<div class="w3-container" style="padding: 70px 16px">
-    <h1 class="w3-center">Title</h1>
+<div class="w3-container" style="padding: 70px 16px; background-color: darkgray; color: black;">
+    <h1 class="w3-center" style="font-weight: bold;">{{item.title}}</h1>
     <div class="row">
         <div class="col-6 cont-r">
-            <img class="img-c" src="https://m.media-amazon.com/images/M/MV5BNGVjNWI4ZGUtNzE0MS00YTJmLWE0ZDctN2ZiYTk2YmI3NTYyXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg">
+            <img class="img-c" src="https://image.tmdb.org/t/p/w500{{item.poster_path}}">
         </div> 
         <div class="col-6 cont-l right">
-            <h1>The City</h1>
-            <p>Chania is the capital of the Chania region on the island of Crete. The city can be divided in two parts, the old town and the modern city.</p>
+            <h3>Overview</h3>
+            <p>{{item.overview}}</p>
+            <h3>Tagline</h3>
+            <p>{{item.tagline}}</p>
+            <h3>Runtime</h3>
+            <p>{{item.runtime}} min</p>
+            <h3>Genres</h3>
+            <p>{% for gen in item.genres %}
+                <span>{{gen.name}}</span>
+                {% endfor %}
+            </p>
+            <h3>Budget</h3>
+            <p>$ {{item.budget}}</p>
+            <h3>Revenue</h3>
+            <p>{{item.revenue}}</p>
+            <h3>Score</h3>
+            <p>{{item.vote_average}}</p>            
+            <h3>Release</h3>
+            <p>{{item.release_date}}</p>
+            <h3>IMDb</h3>
+            <a href="https://www.imdb.com/title/{{item.imdb_id}}" target="_blank">https://www.imdb.com/title/{{item.imdb_id}}</a>
         </div>      
     </div>
 </div>

@@ -4,8 +4,8 @@
 
 
 <!-- Header with full-height image -->
-<header class="bgimg-1 w3-display-container w3-grayscale-min" id="home">
-  <div class="w3-display-left w3-text-white" style="padding:48px">
+<header style="background-color: black;" class="bgimg-1 w3-display-container w3-grayscale-min" id="home">
+  <div  class="w3-display-left w3-text-white" style="padding:48px">
     <span class="w3-jumbo w3-hide-small">Start searching for the movies you love</span><br>
     <span class="w3-xxlarge w3-hide-large w3-hide-medium">Start searching for the movies you love</span><br>
     <span class="w3-large">Movies is the platform that allows you to keep track of the movies you love the most.</span>
@@ -20,57 +20,23 @@
     <i class="fa fa-linkedin w3-hover-opacity"></i>
   </div>
 </header>
-<div id="carr">
-<div class="cont" >
+<div style="background-color: darkgray;" id="carr">
+<div style="background-color: darkgray;"  class="cont" >
 <!-- Slideshow container -->
 <div class="slideshow-container">
 
+    {% for item in list %}
     <!-- Full-width images with number and caption text -->
     <div class="mySlides fade">
-            <div class="w3-card">
-                <img class="myImg" src="https://m.media-amazon.com/images/M/MV5BNGVjNWI4ZGUtNzE0MS00YTJmLWE0ZDctN2ZiYTk2YmI3NTYyXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg" alt="Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum." style="width:100%" onclick="onClick(this)" > 
-                <div class="w3-container">
-                <h3>Title</h3>
-                <p><button class="w3-button w3-light-grey w3-block btn-x"><i class="fa fa-info-circle"></i> </button>
-                </p>
-                </div>
-            </div>
+      <div class="w3-card w3-black">
+          <a href="/details?id={{item.id}}"><img class="myImg" src="https://image.tmdb.org/t/p/w500{{item.poster_path}}" alt="Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum." style="width:100%" onclick="onClick(this)" > </a>
+          <div class="w3-container">
+          <!--p><a href="/details?id={{item.id}}"><button class="w3-button w3-light-grey w3-block btn-x1"><i  class="fa fa-info-circle"></i></button></a>
+          </p-->
+          </div>
+      </div>
     </div>
-  
-
-    <div class="mySlides fade">
-        <div class="w3-card">
-            <img class="myImg" src="https://m.media-amazon.com/images/M/MV5BNGVjNWI4ZGUtNzE0MS00YTJmLWE0ZDctN2ZiYTk2YmI3NTYyXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg" alt="Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum." style="width:100%" onclick="onClick(this)" > 
-            <div class="w3-container">
-            <h3>Title</h3>
-            <p><button class="w3-button w3-light-grey w3-block btn-x"><i class="fa fa-info-circle"></i> </button>
-            </p>
-            </div>
-        </div>
-</div>
-
-<div class="mySlides fade">
-    <div class="w3-card">
-        <img class="myImg" src="https://m.media-amazon.com/images/M/MV5BNGVjNWI4ZGUtNzE0MS00YTJmLWE0ZDctN2ZiYTk2YmI3NTYyXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg" alt="Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum." style="width:100%" onclick="onClick(this)" > 
-        <div class="w3-container">
-        <h3>Title</h3>
-        <p><button class="w3-button w3-light-grey w3-block btn-x"><i class="fa fa-info-circle"></i> </button>
-        </p>
-        </div>
-    </div>
-</div>
-
-<div class="mySlides fade">
-    <div class="w3-card">
-        <img class="myImg" src="https://m.media-amazon.com/images/M/MV5BNGVjNWI4ZGUtNzE0MS00YTJmLWE0ZDctN2ZiYTk2YmI3NTYyXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg" alt="Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum." style="width:100%" onclick="onClick(this)" > 
-        <div class="w3-container">
-        <h3>Title</h3>
-        <p><button class="w3-button w3-light-grey w3-block btn-x"><i class="fa fa-info-circle"></i> </button>
-        </p>
-        </div>
-    </div>
-</div>
-  
+    {% endfor %}
     <!-- Next and previous buttons -->
     <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
     <a class="next" onclick="plusSlides(1)">&#10095;</a>
@@ -196,6 +162,10 @@
 @keyframes fade {
   from {opacity: .4}
   to {opacity: 1}
+}
+
+html{
+  background-color: darkgray;
 }
 </style>
 
