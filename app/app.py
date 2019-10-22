@@ -49,7 +49,7 @@ def details():
     idMovie = request.args.get('id', default = 475557, type = int)
     detail = db.movie.details(idMovie)
     print(detail)
-    return render_template("details.html", item = detail)
+    return render_template("details.html", item = detail, db=db.redis_db)
 
 @app.route("/search")
 def search():

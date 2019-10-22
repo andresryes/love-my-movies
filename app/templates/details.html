@@ -25,7 +25,13 @@
             <h3>Revenue</h3>
             <p>$ {{item.revenue}}</p>
             <h3>Score</h3>
-            <p>{{item.vote_average}} <i style="color: #e6e600;" class="fa fa-star"></i> </p>            
+            <p>{{item.vote_average}} <i style="color: #e6e600;" class="fa fa-star"></i> </p>  
+            <h3>Vote Count</h3>
+            {% if db.get(item.id) is not defined %}
+                <p><i style="color: #e62e00;" class="fa fa-heart"></i> <span>{{item.vote_count}}</span></p>
+            {% else %}
+                <p><i style="color: #e62e00;" class="fa fa-heart"></i> <span>{{db.get(item.id)|int}}</span></h3>
+            {% endif %}          
             <h3>Release Date</h3>
             <p>{{item.release_date}}</p>
             <h3>IMDb</h3>
