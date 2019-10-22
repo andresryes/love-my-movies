@@ -13,13 +13,13 @@
         <div class="w3-col l3 m6 w3-margin-bottom" style="display: table !important;">
             <div class="w3-card w3-black" style="display: table-cell !important;">
                 {% if m.poster_path != None %}
-                    {% if title == "All" %}
+                    {% if title == "All1" %}
                         <img class="myImg" src="https://image.tmdb.org/t/p/w500{{m.poster_path}}" alt="{{m.overview}}" style="width:100%; height: 500px !important;" onclick="onClick(this)" > 
                     {% else %}
                         <img class="myImg" src="https://image.tmdb.org/t/p/w500{{m.poster_path}}" alt="{{m.overview}}" style="width:100%;" onclick="onClick(this)" >
                     {% endif %}
                 {% else %}
-                    {% if title == "All" %}
+                    {% if title == "All1" %}
                         <img class="myImg" src="{{ url_for('static', filename='resources/default-movie.png')}}" alt="{{m.overview}}" style="width:100%; height: 500px !important;" onclick="onClick(this)" > 
                     {% else %}
                         <img class="myImg" src="https://image.tmdb.org/t/p/w500{{m.poster_path}}" alt="{{m.overview}}" style="width:100%;" onclick="onClick(this)" >
@@ -28,7 +28,11 @@
                 <div class="w3-container">
                 <!--h3>{{m.title}}</h3-->
                 <h3><i style="color: #e6e600;" class="fa fa-star"></i>  {{m.vote_average}} </h3>
-                <h6><i style="color: #e62e00;" class="fa fa-heart"></i> <span id="{{m.id}}">{{m.vote_count}}</span></h5>
+                {% if db.get(m.id) is not defined %}
+                    <h6><i style="color: #e62e00;" class="fa fa-heart"></i> <span id="{{m.id}}">{{m.vote_count}}</span></h5>
+                {% else %}
+                    <h6><i style="color: #e62e00;" class="fa fa-heart"></i> <span id="{{m.id}}">{{db.get(m.id)|int}}</span></h5>
+                {% endif %}
                 <p><a href="/details?id={{m.id}}"><button class="w3-button w3-light-grey w3-block btn-x1"><i  class="fa fa-info-circle"></i></button></a>
                     <button class="w3-button w3-light-grey w3-block btn-x" onclick="like(id={{m.id}})"><i  class="fa fa-arrow-up"></i> </button>
                     <button class="w3-button w3-light-grey w3-block btn-y"onclick="dislike(id={{m.id}})"><i class="fa fa-arrow-down"></i> </button>
@@ -64,14 +68,23 @@ style="color: #ff9900;"
         var clicks = parseInt(document.getElementById(id).textContent);
         document.getElementById(id).innerHTML = clicks;
         clicks += 1;
-        document.getElementById(id).innerHTML = clicks;     
+        document.getElementById(id).innerHTML = clicks;   
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "GET", "/like?id="+id, false ); // false for synchronous request
+        xmlHttp.send( null );
+        return xmlHttp.responseText;  
     }
+    
 
     function dislike(id){        
         var clicks = parseInt(document.getElementById(id).textContent);
         document.getElementById(id).innerHTML = clicks;
         clicks -= 1;
-        document.getElementById(id).innerHTML = clicks;     
+        document.getElementById(id).innerHTML = clicks;
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "GET", "/dislike?id="+id, false ); // false for synchronous request
+        xmlHttp.send( null );
+        return xmlHttp.responseText;      
     }
 
     function onClick(element){

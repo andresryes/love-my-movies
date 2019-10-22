@@ -1,26 +1,20 @@
 #FLASK
 from flask import Flask, jsonify, render_template, request
+from db import DB
 app = Flask(__name__)
 import os,optparse
-import redis
 
-r = redis.Redis(host='192.168.99.100', port=6379, db=0)
-r.set('foo', 'bar')
-print(r.get('foo'))
+db = DB("redis_docker")
+db.connect()
+db.getMovies()
+db.setKeys()
 
-info = {}
-from tmdbv3api import TMDb
-tmdb = TMDb()
-tmdb.api_key = '1dc5bcb73c0781470cb348d5e02a05a5'
-tmdb.language = 'en'
-tmdb.debug = False
+print(int(db.redis_db.get('475557')))
 
-from tmdbv3api import Movie, Discover
-movie = Movie()
-
-popular = movie.popular()
-now = movie.now_playing()
-top = movie.top_rated()
+popular = db.popular
+now = db.now
+top = db.top
+movie_discovered = db.movie_discovered
 
 '''
 for p in now:
@@ -32,15 +26,11 @@ for p in now:
     print(p.vote_count)
     print(p.vote_average)
     print(p.release_date)
-'''
+
 print(len(movie.now_playing()))
 print(len(movie.popular()))
 print(len(movie.top_rated()))
-
-discover = Discover()
-movie_discovered = discover.discover_movies({
-    'sort_by': 'vote_average.desc'
-})
+'''
 
 '''
 for i in movie_discovered:
@@ -57,47 +47,57 @@ def home():
 @app.route("/details")
 def details():
     idMovie = request.args.get('id', default = 475557, type = int)
-    detail = movie.details(idMovie)
+    detail = db.movie.details(idMovie)
     print(detail)
     return render_template("details.html", item = detail)
 
 @app.route("/search")
 def search():
     key = request.args.get('key', default = "Joker")
-    result = movie.search(key)
+    result = db.movie.search(key)
     if len(result) != 0:
         result = result[0:4]
     print(result)
-    return render_template("movies.html", title="Results of the search "+"'" + key +"'", list = result)
+    return render_template("movies.html", title="Results of the search "+"'" + key +"'", list = result, db=db.redis_db)
 
 @app.route("/top")
 def top_m():
-    return render_template("movies.html", title="Top Rated", list=top)
+    return render_template("movies.html", title="Top Rated", list=top, db=db.redis_db)
 
 @app.route("/now")
 def now_m():
-    return render_template("movies.html", title="Now Playing", list=now)
+    return render_template("movies.html", title="Now Playing", list=now, db=db.redis_db)
 
 @app.route("/pop")
 def pop():
-    return render_template("movies.html", title="Popular", list=popular)
+    return render_template("movies.html", title="Popular", list=popular, db=db.redis_db)
 
 @app.route("/all")
 def all():
     response = []
-    lists = [top, now, popular, movie_discovered]
-
-    for li in lists:
-        for m in li:
-            exist = False
-            for r in response:
-                if r.id == m.id:
-                    exist = True
-            if(not exist):
-                response.append(m)
+    response = db.all_movies
     
     print(len(response))
-    return render_template("movies.html", title="All", list=response)
+    return render_template("movies.html", title="All", list=response, db=db.redis_db)
+
+@app.route("/like")
+def like():
+    idMovie = request.args.get('id', default = 475557, type = int)
+    if db.redis_db.get(idMovie):
+        print(db.redis_db.get(idMovie))
+        db.redis_db.set(idMovie, int(db.redis_db.get(idMovie))+1)
+        print(db.redis_db.get(idMovie))
+    return "liked"
+
+
+@app.route("/dislike")
+def dislike():
+    idMovie = request.args.get('id', default = 475557, type = int)
+    if db.redis_db.get(idMovie):
+        print(db.redis_db.get(idMovie))
+        db.redis_db.set(idMovie, int(db.redis_db.get(idMovie))-1)
+        print(db.redis_db.get(idMovie))
+    return "disliked"
 
 if __name__ == "__main__":
     debug=False

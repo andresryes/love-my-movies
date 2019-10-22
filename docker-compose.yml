@@ -1,29 +1,12 @@
-version: '3'
+version: "2"
 services:
-  flaskapp:
-    #build: ./api.Dockerfile
-    build:
-      context: ./
-      dockerfile: api.Dockerfile
-    #   args:
-    #     buildno: 1
-    #image: andresry/cpusimulator:0.0
-    ports:
-      - "5000:5000"
-    networks:
-      - web_nw
-
-  redis:
-    #build: ./web.Dockerfile
-    image: redis
-    container_name: cache
-    expose:    
-      - 6379
-    #image: andresry/webcpu:0.0
-    ports:
-      - "6379:6379"
-    networks:
-      - web_nw
-networks:
-  web_nw:
-    driver: bridge
+    web:
+        build: .
+        ports:
+            - "5000:5000"
+        volumes:
+            - .:/love-my-movies
+        depends_on:
+            - docker_redis
+    docker_redis:
+        image: redis
