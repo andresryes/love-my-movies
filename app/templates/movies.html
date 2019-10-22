@@ -13,13 +13,13 @@
         <div class="w3-col l3 m6 w3-margin-bottom" style="display: table !important;">
             <div class="w3-card w3-black" style="display: table-cell !important;">
                 {% if m.poster_path != None %}
-                    {% if title == "All1" %}
+                    {% if title == "All" %}
                         <img class="myImg" src="https://image.tmdb.org/t/p/w500{{m.poster_path}}" alt="{{m.overview}}" style="width:100%; height: 500px !important;" onclick="onClick(this)" > 
                     {% else %}
                         <img class="myImg" src="https://image.tmdb.org/t/p/w500{{m.poster_path}}" alt="{{m.overview}}" style="width:100%;" onclick="onClick(this)" >
                     {% endif %}
                 {% else %}
-                    {% if title == "All1" %}
+                    {% if title == "All" %}
                         <img class="myImg" src="{{ url_for('static', filename='resources/default-movie.png')}}" alt="{{m.overview}}" style="width:100%; height: 500px !important;" onclick="onClick(this)" > 
                     {% else %}
                         <img class="myImg" src="https://image.tmdb.org/t/p/w500{{m.poster_path}}" alt="{{m.overview}}" style="width:100%;" onclick="onClick(this)" >
