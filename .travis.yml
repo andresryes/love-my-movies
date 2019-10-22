@@ -13,6 +13,8 @@ install:
   - pip install -r requirements.txt
   - 
 # command to run tests
+# command to push to andresry/love-movies
+# pytest runs all the unit test setup
 script: 
   - pytest
   - docker build --rm -f "api.Dockerfile" -t andresry/love-movies:latest .
