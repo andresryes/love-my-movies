@@ -2,7 +2,11 @@
 from flask import Flask, jsonify, render_template, request
 app = Flask(__name__)
 import os,optparse
-import yaml
+import redis
+
+r = redis.Redis(host='192.168.99.100', port=6379, db=0)
+r.set('foo', 'bar')
+print(r.get('foo'))
 
 info = {}
 from tmdbv3api import TMDb

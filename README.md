@@ -53,7 +53,8 @@ The app will look like this:
 # IT MUST RUN VIA DOCKER
 # example 1
 docker run -it -p 8080:8080 your-image/love-my-movies:1.20
-
+docker build --rm -f "api.Dockerfile" -t andresry/love-movies:latest .
+docker build --rm -f "db.Dockerfile" -t andresry/redis:latest .
 # example 2
 docker-compose up
 
