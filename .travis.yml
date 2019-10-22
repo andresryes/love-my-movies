@@ -17,6 +17,6 @@ install:
 # pytest runs all the unit test setup
 script: 
   - pytest
-  - docker build --rm -f "api.Dockerfile" -t andresry/love-movies:latest .
+  - docker build --rm -f "Dockerfile" -t andresry/love-movies:latest .
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker push andresry/love-movies
